@@ -37,6 +37,8 @@ cmake -S "$SRC_DIR" -B "$BUILD_DIR" \
   -DSTIR_BUILD_SWIG_PYTHON=ON \
   -DSTIR_ENABLE_OPENMP=ON \
   \
+  -DBUILD_CIL=ON \
+  \
   -DSIRF_TAG="origin/master" \
   -DSTIR_URL="https://github.com/samdporter/STIR" \
   -DSTIR_TAG="origin/SPECT_subsets" \

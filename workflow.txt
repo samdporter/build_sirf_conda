@@ -1,20 +1,25 @@
 # Step 1 (once): create env
 ./1_create_environment.sh
 
-# Step 2 (once): set up infra (stays in scripts dir)
+# Step 2: activate env manually
+conda activate sirf-build
+
+# Step 3 (once): set up infra (stays in scripts dir)
 ./2_setup_build.sh
 
-# Step 3: activate env (still in scripts dir)
+# Step 4: use convenient activation (from now on)
 source ~/devel/activate_sirf.sh
 
-# Step 4: configure (still in scripts dir; writes to $HOME/devel/SIRF_builds/conda)
+# Step 5: configure (writes to $HOME/devel/SIRF_builds/conda)
 ./3_configure_sirf.sh
 
-# Step 5: build (still in scripts dir)
-./4_build.sh
+# Step 6: build (choose one option)
+./4_build.sh              # Normal parallel build (fastest)
+./4_build.sh --debug      # Single-core debug build (easier to debug errors) 
+./4_build.sh -j4          # Build with 4 cores (moderate speed)
 
-# Step 6: use SIRF in current shell
+# Step 7: use SIRF in current shell
 source ~/devel/SIRF_builds/conda/INSTALL/bin/env_sirf.sh
 
-# Step 7 (optional): add to bashrc
+# Step 8 (optional): add to bashrc
 echo 'source ~/devel/SIRF_builds/conda/INSTALL/bin/env_sirf.sh' >> ~/.bashrc

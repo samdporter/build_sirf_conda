@@ -1,70 +1,47 @@
 name: sirf-build
 channels:
+  - https://software.repos.intel.com/python/conda  # For CIL
   - conda-forge
+  - ccpi  # For CIL package
 dependencies:
-# --- toolchain & build system ---
-  - compilers
-  - cmake>=3.16,<4.0 # avoid "CMake too high" issues
-  - ninja
-  - ccache
-  - pkg-config
+# --- Essential build tools ---
+  - compilers  # Back to general compilers package
+  - python=3.10
+  - cmake>=3.16,<4.0
   - git
-# --- CUDA runtime & development (split packages) ---
-# Runtime packages (for running CUDA applications)
-  - cuda-version=12
-  - cuda-cudart
-  - libcublas
-  - libcusparse
-  - libnvjitlink
-# Development packages (for building CUDA code from source)
-  - cuda-nvcc 
-  - cuda-toolkit   
-  - cuda-libraries-dev
-# --- Parallelproj (CUDA-enabled expected with above) ---
+  - pkg-config
+  - ninja
+  - make
+  - ccache
+# --- Core scientific stack ---
+  - numpy<2.0
+  - scipy
+  - matplotlib
+  - h5py
+# --- Essential SIRF deps ---
+  - boost
+  - boost-cpp  # Ensure C++ headers are available
+  - fftw
+  - swig<=4.0.*
+  - armadillo
+  - eigen
+  - itk
+  - pugixml
+# -hdf5
+# --- CUDA (using available packages) ---
+  - cudatoolkit>=11.0 # Let conda choose available version
+  - cupy # Let conda resolve compatible version
+# --- CIL (install via conda to avoid build issues) ---
+  - cil=25.0.0  # Core Imaging Library version 25.0.0
+# --- Parallelproj requirements ---
   - parallelproj>=1.10
   - libparallelproj>=1.10
-# --- Core SIRF deps ---
-  - boost>=1.65
-  - hdf5>=1.10
-  - fftw>=3.3.5
-  - swig>=3.0.12
-  - armadillo>=9.0
-  - eigen>=3.3
-# --- Optional but recommended ---
-  - itk>=5.0
-  - vtk
-  - opencv
-# --- Python scientific stack ---
-  - numpy>=1.15
-  - scipy>=1.0
-  - matplotlib>=3.0
-  - h5py>=2.8
+# --- Minimal extras ---
   - nibabel
   - pillow
-  - ipython
-  - jupyter
-  - spyder
-# --- ML / TotalSegmentator ---
-  - pytorch>=2.1.0,<2.4.0
-  - torchvision
-  - scikit-image
-  - scikit-learn
-  - pandas
-  - tqdm
-  - requests
-  - cupy>=12
-# --- Extras ---
-  - docopt
-  - xmltodict
-  - psutil
-  - coverage
-  - nose
-  - pytest
-# --- GUI ---
   - tk
-  - qt
-# --- pip ---
+  - qt=5.*  # Pin to Qt 5 for compatibility
+# --- pip for packages not in conda ---
   - pip
   - pip:
     - pydicom
-    - totalsegmentator>=2.0.0
