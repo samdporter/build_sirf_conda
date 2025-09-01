@@ -1,0 +1,20 @@
+# SIRF SuperBuild Workflow
+
+# Step 1: Create environment (run once)
+./1_create_environment.sh
+
+# Step 2: Setup build infrastructure (run once)  
+./2_setup_build.sh
+
+# Step 3: Configure build
+cd ~/devel/SIRF_builds/conda
+./3_configure_sirf.sh
+
+# Step 4: Build
+cmake --build . --parallel $(nproc)
+
+# Step 6: After successful build, set SIRF environment
+source INSTALL/bin/env_sirf.sh
+
+# Step 7: Add to bashrc for future sessions
+echo "source ~/devel/SIRF_builds/conda/INSTALL/bin/env_sirf.sh" >> ~/.bashrc

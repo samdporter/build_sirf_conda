@@ -1,0 +1,70 @@
+name: sirf-build
+channels:
+  - conda-forge
+dependencies:
+# --- toolchain & build system ---
+  - compilers
+  - cmake>=3.16,<4.0 # avoid "CMake too high" issues
+  - ninja
+  - ccache
+  - pkg-config
+  - git
+# --- CUDA runtime & development (split packages) ---
+# Runtime packages (for running CUDA applications)
+  - cuda-version=12
+  - cuda-cudart
+  - libcublas
+  - libcusparse
+  - libnvjitlink
+# Development packages (for building CUDA code from source)
+  - cuda-nvcc 
+  - cuda-toolkit   
+  - cuda-libraries-dev
+# --- Parallelproj (CUDA-enabled expected with above) ---
+  - parallelproj>=1.10
+  - libparallelproj>=1.10
+# --- Core SIRF deps ---
+  - boost>=1.65
+  - hdf5>=1.10
+  - fftw>=3.3.5
+  - swig>=3.0.12
+  - armadillo>=9.0
+  - eigen>=3.3
+# --- Optional but recommended ---
+  - itk>=5.0
+  - vtk
+  - opencv
+# --- Python scientific stack ---
+  - numpy>=1.15
+  - scipy>=1.0
+  - matplotlib>=3.0
+  - h5py>=2.8
+  - nibabel
+  - pillow
+  - ipython
+  - jupyter
+  - spyder
+# --- ML / TotalSegmentator ---
+  - pytorch>=2.1.0,<2.4.0
+  - torchvision
+  - scikit-image
+  - scikit-learn
+  - pandas
+  - tqdm
+  - requests
+  - cupy>=12
+# --- Extras ---
+  - docopt
+  - xmltodict
+  - psutil
+  - coverage
+  - nose
+  - pytest
+# --- GUI ---
+  - tk
+  - qt
+# --- pip ---
+  - pip
+  - pip:
+    - pydicom
+    - totalsegmentator>=2.0.0
