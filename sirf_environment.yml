@@ -1,11 +1,12 @@
+
 name: sirf-build
 channels:
-  - https://software.repos.intel.com/python/conda  # For CIL
   - conda-forge
-  - ccpi  # For CIL package
 dependencies:
-# --- Essential build tools ---
-  - compilers  # Back to general compilers package
+# --- Essential build tools with compatible GCC ---
+  - gcc_linux-64=11.*  # Pin to GCC 11 for compatibility
+  - gxx_linux-64=11.*  # Pin to G++ 11 for compatibility
+  - gfortran_linux-64=11.*  # Pin to gfortran 11
   - python=3.10
   - cmake>=3.16,<4.0
   - git
@@ -14,7 +15,7 @@ dependencies:
   - make
   - ccache
 # --- Core scientific stack ---
-  - numpy<2.0
+  - numpy>=1.18.0,<2.0
   - scipy
   - matplotlib
   - h5py
@@ -22,21 +23,21 @@ dependencies:
   - boost
   - boost-cpp  # Ensure C++ headers are available
   - fftw
-  - swig<=4.0.*
+  - swig=4.0.*
   - armadillo
   - eigen
   - itk
   - pugixml
 # -hdf5
 # --- CUDA (using available packages) ---
-  - cudatoolkit>=11.0 # Let conda choose available version
+  - cudatoolkit>=11.0 # Runtime libraries
   - cupy # Let conda resolve compatible version
-# --- CIL (install via conda to avoid build issues) ---
-  - cil=25.0.0  # Core Imaging Library version 25.0.0
+  # Note: nvcc typically comes from system installation
 # --- Parallelproj requirements ---
   - parallelproj>=1.10
   - libparallelproj>=1.10
 # --- Minimal extras ---
+  - deprecation
   - nibabel
   - pillow
   - tk
